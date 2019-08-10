@@ -3,7 +3,7 @@
 
 # But not these files...
 !.gitignore
-!Script.py
+!PythonApplication1.py
 # etc...
 
 # ...even if they are in subdirectories
