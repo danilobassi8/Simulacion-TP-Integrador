@@ -1,14 +1,18 @@
-# Ignore everything
+# Se ignoran absolutamente todos los archivos.
 *
 
-# But not these files...
+# Excepto los siguientes:
 !.gitignore
 !PythonApplication1.py
+
 # etc...
 
-# ...even if they are in subdirectories
+# ...Aun si estan en subdirectorios.
 !*/
 
 # if the files to be tracked are in subdirectories
 !*/a/b/file1.txt
 !*/a/b/c/*
+
+
+#by elcurco8
