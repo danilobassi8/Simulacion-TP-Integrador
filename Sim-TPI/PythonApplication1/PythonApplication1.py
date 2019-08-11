@@ -3,6 +3,7 @@ import random
 
 
 
+
 def Inicializacion():
     global clock
     global server1,server2,server3,server4,server5
@@ -255,6 +256,7 @@ def GestionDeServidores():
     return 0
 
 
+
 def Graficar():
     global clock
     global server1,server2,server3,server4,server5
@@ -262,18 +264,74 @@ def Graficar():
     global contadorSistema
     global demoraTotal,util_sv1,util_sv2,util_sv3,util_sv4,util_sv5
 
-    print("--------------  " + str(contadorSistema) + "  ---------------")
+    print("                                --------------  " + str(contadorSistema) + "  ---------------")
     print()
-    print("cola1: ", end = '')
-    print(cola1.clientes)
-    print("                                                  server1: " , end = '')
-    print([server1.cliente])
-    print("cola2: ", end = '')
-    print(cola2.clientes)
-    print("                                                  server2: " , end = '')
-    print([server2.cliente])
+
+    #muestro todos los de la cola 1
+    print("Cola 1: ", end = '')
+    for i in range(len(cola1.clientes)):
+        print("| %.4f " % cola1.clientes[i].tiempoArribo, end = '')
+    print()
+
+    #muestro server 1
+    if(server1.cliente != 0):
+        print("                             Server 1: %.4f" % server1.cliente.tiempoArribo)
+    else:
+        print("                             Server 1: Vacio")
 
 
+    print()
+    print()
+    print("                                                 Cola 3:" , end = '')
+    for i in range(len(cola3.clientes)):
+        print("| %.4f " % cola3.clientes[i].tiempoArribo, end = '')
+    print()
+    print()
+
+    #muestro todos los de la cola 2
+    print("Cola 2: ", end = '')
+    for i in range(len(cola2.clientes)):
+        print("| %.4f " % cola2.clientes[i].tiempoArribo, end = '')
+    print()
+
+    #muestro server 2
+    if(server2.cliente != 0):
+        print("                             Server 2: %.4f " % server2.cliente.tiempoArribo)
+    else:
+        print("                             Server 2: Vacio")
+
+    print()
+    print()
+    print()
+    
+    if(server3.cliente != 0):
+        print("                                                             Server 3: %.4f " % server3.cliente.tiempoArribo)
+    else:
+        print("                                                             Server 3: Vacio")
+    if(server4.cliente != 0):
+        print("                                                             Server 4: %.4f " % server4.cliente.tiempoArribo)
+    else:
+        print("                                                             Server 4: Vacio")
+    if(server5.cliente != 0):
+        print("                                                             Server 5: %.4f " % server5.cliente.tiempoArribo)
+    else:
+        print("                                                             Server 5: Vacio")
+
+
+   # if(server1.cliente != 0):
+   #     print(" server1: " + [server1.cliente])
+   # else:
+   #     print(" server1: vacio")
+   # print()
+
+   #for i in range(len(cola2.clientes)):
+   #    print(str(format(cola2.clientes[i].tiempoArribo,3)) + ", " , end = '')
+   #
+    #if(server2.cliente != 0):
+    #    print(" server2: " + [server2.cliente])
+    #else:
+    #    print(" server2: vacio")
+    #print()
 
 
 
@@ -287,6 +345,7 @@ while(sigueSimulacion):
     Graficar()
     GestionDeServidores()
     Graficar()
+    
     contadorSistema = contadorSistema + 1
     
    
