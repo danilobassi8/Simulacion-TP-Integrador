@@ -35,6 +35,12 @@ def Inicializacion():
     #seteo demas variables de interes.
     contadorSistema = 0
     clock = 0
+    demoraTotal = 0
+    util_sv1 = 0
+    util_sv2 = 0
+    util_sv3 = 0
+    util_sv4 = 0
+    util_sv5 = 0
 
     #como es la primera vez, voy a generar el primer tiempo de arribo.
     ListaEventos.llegadaProximoCliente = generarAleatorioExponencial(10)
@@ -256,7 +262,7 @@ def Graficar():
     global contadorSistema
     global demoraTotal,util_sv1,util_sv2,util_sv3,util_sv4,util_sv5
 
-    print("--------------  " + str(contadorSistema) +"  ---------------")
+    print("--------------  " + str(contadorSistema) + "  ---------------")
     print()
     print("cola1: ", end = '')
     print(cola1.clientes)
@@ -281,7 +287,7 @@ while(sigueSimulacion):
     Graficar()
     GestionDeServidores()
     Graficar()
-    contadorSistema = contadorSistema+1
+    contadorSistema = contadorSistema + 1
     
    
 
