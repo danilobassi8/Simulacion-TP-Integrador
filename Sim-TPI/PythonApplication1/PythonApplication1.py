@@ -9,7 +9,7 @@ def Inicializacion():
     global server1,server2,server3,server4,server5
     global cola1,cola2,cola3
     global contadorSistema
-    global demoraTotal,util_sv1,util_sv2,util_sv3,util_sv4,util_sv5
+    global demoraTotal,util_sv1,util_sv2,util_sv3,util_sv4,util_sv5, numeroClientesAtendidos
 
 
     #creo los servidores y las colas.
@@ -42,9 +42,10 @@ def Inicializacion():
     util_sv3 = 0
     util_sv4 = 0
     util_sv5 = 0
+    numeroClientesAtendidos = 0
 
     #como es la primera vez, voy a generar el primer tiempo de arribo.
-    ListaEventos.llegadaProximoCliente = generarAleatorioExponencial(10)
+    ListaEventos.llegadaProximoCliente = generarAleatorioExponencial(1/10)
 
 
 #ejemplo para recordar como se usan las propiedades.
@@ -133,7 +134,7 @@ def OcurreProximoEvento(nextEvent):
     global clock
     global server1,server2,server3,server4,server5
     global cola1,cola2,cola3
-    global demoraTotal,util_sv1,util_sv2,util_sv3,util_sv4,util_sv5
+    global demoraTotal,util_sv1,util_sv2,util_sv3,util_sv4,util_sv5,numeroClientesAtendidos
 
     if(nextEvent == "llegada"): 
         #avanzo el reloj y creo la proxima llegada.
@@ -187,6 +188,9 @@ def OcurreProximoEvento(nextEvent):
         #sumo a la demora total del sistema (clock - tiempollegada del cliente)
         demoraTotal = demoraTotal + clock - clienteSV3.tiempoArribo
 
+        numeroClientesAtendidos = numeroClientesAtendidos + 1
+        
+
     elif(nextEvent == "partida4"):
         clock = ListaEventos.partida4
 
@@ -199,6 +203,9 @@ def OcurreProximoEvento(nextEvent):
 
         #sumo a la demora total del sistema (clock - tiempollegada del cliente)
         demoraTotal = demoraTotal + clock - clienteSV4.tiempoArribo
+
+        numeroClientesAtendidos = numeroClientesAtendidos + 1
+
     elif(nextEvent == "partida5"):
         clock = ListaEventos.partida5
 
@@ -211,6 +218,8 @@ def OcurreProximoEvento(nextEvent):
 
         #sumo a la demora total del sistema (clock - tiempollegada del cliente)
         demoraTotal = demoraTotal + clock - clienteSV5.tiempoArribo
+
+        numeroClientesAtendidos = numeroClientesAtendidos + 1
 
 def GestionDeServidores():
     global clock
@@ -262,10 +271,10 @@ def Graficar():
     global server1,server2,server3,server4,server5
     global cola1,cola2,cola3
     global contadorSistema
-    global demoraTotal,util_sv1,util_sv2,util_sv3,util_sv4,util_sv5
+    global demoraTotal,util_sv1,util_sv2,util_sv3,util_sv4,util_sv5,numeroClientesAtendidos
 
-    print("                                --------------  " + str(contadorSistema) + "  ---------------")
-    print()
+    print('                                --------------  ' + str(contadorSistema) + '  ---------------')
+    print("                                                                                                 Reloj: %.4f" % clock)
 
     #muestro todos los de la cola 1
     print("Cola 1: ", end = '')
@@ -318,20 +327,23 @@ def Graficar():
         print("                                                             Server 5: Vacio")
 
 
-   # if(server1.cliente != 0):
-   #     print(" server1: " + [server1.cliente])
-   # else:
-   #     print(" server1: vacio")
-   # print()
+def Reporte():
+    global demoraTotal,util_sv1,util_sv2,util_sv3,util_sv4,util_sv5
+    print("######################################################################################################")
 
-   #for i in range(len(cola2.clientes)):
-   #    print(str(format(cola2.clientes[i].tiempoArribo,3)) + ", " , end = '')
-   #
-    #if(server2.cliente != 0):
-    #    print(" server2: " + [server2.cliente])
-    #else:
-    #    print(" server2: vacio")
-    #print()
+    print()
+    print("Numero de clientes atendidos: " + str(numeroClientesAtendidos))
+    print()
+    print("Utilizacion server 1: " + str(util_sv1/clock))
+    print("Utilizacion server 2: " + str(util_sv2/clock))
+    print("Utilizacion server 3: " + str(util_sv3/clock))
+    print("Utilizacion server 4: " + str(util_sv4/clock))
+    print("Utilizacion server 5: " + str(util_sv5/clock))
+    print()
+    print("Demora promedio del cliente: " + str(demoraTotal/numeroClientesAtendidos))
+
+    print("######################################################################################################")
+
 
 
 
@@ -345,10 +357,10 @@ while(sigueSimulacion):
     Graficar()
     GestionDeServidores()
     Graficar()
-    
+    if(contadorSistema == 200):
+        sigueSimulacion = False
     contadorSistema = contadorSistema + 1
-    
+Reporte()  
    
-
 
 
