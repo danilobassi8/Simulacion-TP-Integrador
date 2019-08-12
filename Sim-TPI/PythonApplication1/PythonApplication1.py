@@ -29,9 +29,9 @@ def Inicializacion():
     cola2 = Cola()
     cola3 = Cola()
     
-    cola1.politicaAtencion = "FIFO"
-    cola2.politicaAtencion = "FIFO"
-    cola3.politicaAtencion = "FIFO"    
+    cola1.politicaAtencion = "PRIOR"
+    cola2.politicaAtencion = "PRIOR"
+    cola3.politicaAtencion = "LIFO"    
     
     #seteo demas variables de interes.
     contadorSistema = 0
@@ -80,9 +80,20 @@ class Cola():
             self.clientes.remove(retorno)
             return retorno
         elif(self.politicaAtencion == "LIFO"):
-            retorno = self.clientes[len(clientes) - 1]
+            retorno = self.clientes[len(self.clientes) - 1]
             self.clientes.remove(retorno)
             return retorno
+        elif(self.politicaAtencion == "PRIOR"):
+            for i in (self.clientes):
+                if(i.prioridad == True):
+                    retorno = i
+                    self.clientes.remove(retorno)
+                    return retorno
+            retorno = self.clientes[0]
+            self.clientes.remove(retorno)
+            return retorno
+
+
 
 class Cliente():
     def __init__(self):
@@ -341,26 +352,41 @@ def Reporte():
     print("Utilizacion server 5: " + str(util_sv5/clock))
     print()
     print("Demora promedio del cliente: " + str(demoraTotal/numeroClientesAtendidos))
+    
+    file1.write(str(numeroClientesAtendidos)+"\n")
+    file1.write("\n")
+    file1.write(str(util_sv1/clock) +"\n") 
+    file1.write(str(util_sv2/clock) +"\n") 
+    file1.write(str(util_sv3/clock) +"\n") 
+    file1.write(str(util_sv4/clock) +"\n") 
+    file1.write(str(util_sv5/clock) +"\n") 
+    file1.write("\n")
+    file1.write("\n")
+    file1.write(str(demoraTotal/numeroClientesAtendidos) + "\n")
+    file1.write("-----------------------------\n")
+
+   
 
     print("######################################################################################################")
 
 
-
-
-Inicializacion()
-sigueSimulacion = True
-Graficar()
-contadorSistema = 0
-while(sigueSimulacion):
-    nextEvent = proximoEvento() #basicamente se fija en cual es el evento mas proximo y lo devuelve.
-    OcurreProximoEvento(nextEvent)
+file1 = open("allFIFO.txt","w") 
+for i in range(30):
+    Inicializacion()
+    
+    sigueSimulacion = True
     Graficar()
-    GestionDeServidores()
-    Graficar()
-    if(contadorSistema == 200):
-        sigueSimulacion = False
-    contadorSistema = contadorSistema + 1
-Reporte()  
-   
+    contadorSistema = 0
+    while(sigueSimulacion):
+        nextEvent = proximoEvento() #basicamente se fija en cual es el evento mas proximo y lo devuelve.
+        OcurreProximoEvento(nextEvent)
+        #Graficar()
+        GestionDeServidores()
+        #Graficar()
+        if(contadorSistema == 500):
+            sigueSimulacion = False
+        contadorSistema = contadorSistema + 1
+    Reporte()  
+file1.close()  
 
 
