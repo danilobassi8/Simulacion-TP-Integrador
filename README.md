@@ -3,8 +3,8 @@ Trabajo practico de simulación donde se debía hacer un script en Python que se
 
 representación del servidor en ASCII:
 
------- *                    *.
-
-             ------------   *.
-
--------*                    *.
+--- * 
+          *
+     ---  *
+          *    
+--- *
