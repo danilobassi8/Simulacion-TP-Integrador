@@ -29,12 +29,12 @@ def Inicializacion():
 
     cola1 = Cola()
     cola2 = Cola()
-    
-    
+
+
     cola1.politicaAtencion = "FIFO"
     cola2.politicaAtencion = "FIFO"
-        
-    
+
+
     #seteo demas variables de interes.
     contadorSistema = 0
     clock = 0
@@ -84,7 +84,7 @@ class Cola():
         return len(self.clientes)
 
     def DameCliente(self):
-        
+
         #porcion de codigo para calcular la Q(t)
         global Q1,Q2,Q3,Q4,clock
         global bandera
@@ -96,12 +96,12 @@ class Cola():
         cant = cola2.DameCantidad()
         Q2 = Q2 + (clock-bandera)*cant
 
-        
+
 
         bandera = clock
         #
-        
-        
+
+
         if(self.politicaAtencion == "FIFO"):
             retorno = self.clientes[0]
             self.clientes.remove(retorno)
@@ -144,7 +144,7 @@ def generarAleatorioExponencial(media):
 
 def proximoEvento():
     #veo cual es el menor numero.
-    numeroMinimo = min([ListaEventos.llegadaProximoCliente,ListaEventos.partida1,ListaEventos.partida2,ListaEventos.partida3,ListaEventos.partida4,ListaEventos.partida5]) 
+    numeroMinimo = min([ListaEventos.llegadaProximoCliente,ListaEventos.partida1,ListaEventos.partida2,ListaEventos.partida3,ListaEventos.partida4,ListaEventos.partida5])
     #veo a quien corresponde.
     if(ListaEventos.llegadaProximoCliente == numeroMinimo):
         return "llegada"
@@ -174,7 +174,7 @@ def OcurreProximoEvento(nextEvent):
     global cola1,cola2,cola3,Q1,Q2,bandera
     global demoraTotal,util_sv1,util_sv2,util_sv3,util_sv4,util_sv5,numeroClientesAtendidos
 
-    if(nextEvent == "llegada"): 
+    if(nextEvent == "llegada"):
         #avanzo el reloj y creo la proxima llegada.
         clock = ListaEventos.llegadaProximoCliente
         ListaEventos.llegadaProximoCliente = generarAleatorioExponencial(1 / 10) + clock
@@ -185,10 +185,10 @@ def OcurreProximoEvento(nextEvent):
         clienteNuevo.prioridad = generarPrioridad(5)
 
         #meto el cliente en alguna de las dos colas.
-        
+
         cola1.clientes.append(clienteNuevo)
-        
-                    
+
+
     elif(nextEvent == "partida1"):
         #actualizo el clock
         clock = ListaEventos.partida1
@@ -208,6 +208,7 @@ def OcurreProximoEvento(nextEvent):
         #actualiza cuando entra un cliente.
         util_sv1 = util_sv1 + clock - server1.banderaUtilizacion
 
+
     elif(nextEvent == "partida2"):
         #actualizo el clock
         clock = ListaEventos.partida2
@@ -219,7 +220,7 @@ def OcurreProximoEvento(nextEvent):
         cant = cola2.DameCantidad()
         Q2 = Q2 + (clock-bandera)*cant
         bandera = clock
-        
+
 
         clienteSV2 = server2.cliente
         server2.cliente = 0
@@ -228,6 +229,7 @@ def OcurreProximoEvento(nextEvent):
         #actualiza cuando entra un cliente.
         util_sv2 = util_sv2 + clock - server2.banderaUtilizacion
 
+
     elif(nextEvent == "partida3"):
         #actualizo el clock
         clock = ListaEventos.partida3
@@ -235,26 +237,27 @@ def OcurreProximoEvento(nextEvent):
 
         cant = cola1.DameCantidad()
         Q1 = Q1 + (clock-bandera)*cant
-        
+
         cant = cola2.DameCantidad()
         Q2 = Q2 + (clock-bandera)*cant
         bandera = clock
-        
+
 
         clienteSV3 = server3.cliente
         server3.cliente = 0
         cola2.clientes.append(clienteSV3)
+
         #calculo el tiempo utilizado del servidor en base a la bandera que se
         #actualiza cuando entra un cliente.
         util_sv3 = util_sv3 + clock - server3.banderaUtilizacion
-        
+
 
     elif(nextEvent == "partida4"):
         clock = ListaEventos.partida4
 
         clienteSV4 = server4.cliente
         server4.cliente = 0
-        
+
         cant = cola1.DameCantidad()
         Q1 = Q1 + (clock-bandera)*cant
 
@@ -269,7 +272,7 @@ def OcurreProximoEvento(nextEvent):
 
         #sumo a la demora total del sistema (clock - tiempollegada del cliente)
         demoraTotal = demoraTotal + clock - clienteSV4.tiempoArribo
-
+        file1.write(str(clock-clienteSV4.tiempoArribo)+"\n")
         numeroClientesAtendidos = numeroClientesAtendidos + 1
 
     elif(nextEvent == "partida5"):
@@ -285,13 +288,14 @@ def OcurreProximoEvento(nextEvent):
 
         clienteSV5 = server5.cliente
         server5.cliente = 0
-        
+
         #calculo el tiempo utilizado del servidor en base a la bandera que se
         #actualiza cuando entra un cliente.
         util_sv5 = util_sv5 + clock - server5.banderaUtilizacion
 
         #sumo a la demora total del sistema (clock - tiempollegada del cliente)
         demoraTotal = demoraTotal + clock - clienteSV5.tiempoArribo
+        file1.write(str(clock-clienteSV5.tiempoArribo) +"\n")
 
         numeroClientesAtendidos = numeroClientesAtendidos + 1
 
@@ -371,7 +375,7 @@ def Graficar():
     print()
     print()
 
-    
+
 
     #muestro server 2
     if(server2.cliente != 0):
@@ -382,7 +386,7 @@ def Graficar():
     print()
     print()
     print()
-    
+
     if(server3.cliente != 0):
         print("                                                             Server 3: %.4f " % server3.cliente.tiempoArribo)
     else:
@@ -411,18 +415,19 @@ def Reporte():
     print("Utilizacion server 5: " + str(util_sv5 / clock))
     print()
     print("Demora promedio del cliente: " + str(demoraTotal / numeroClientesAtendidos))
-    
-    file1.write(str(numeroClientesAtendidos) + "\n")
-    file1.write("\n")
-    file1.write(str(util_sv1 / clock) + "\n") 
-    file1.write(str(util_sv2 / clock) + "\n") 
-    file1.write(str(util_sv3 / clock) + "\n") 
-    file1.write(str(util_sv4 / clock) + "\n") 
-    file1.write(str(util_sv5 / clock) + "\n") 
-    file1.write("\n")
-    file1.write("\n")
-    file1.write(str(demoraTotal / numeroClientesAtendidos) + "\n")
-    file1.write("-----------------------------\n")
+
+    #file1.write(str(numeroClientesAtendidos) + "\n")
+    #file1.write("\n")
+    #file1.write(str(util_sv1 / clock) + "\n")
+    #file1.write(str(util_sv2 / clock) + "\n")
+    #file1.write(str(util_sv3 / clock) + "\n")
+    #file1.write(str(util_sv4 / clock) + "\n")
+    #file1.write(str(util_sv5 / clock) + "\n")
+    #file1.write("\n")
+    #file1.write("\n")
+    #file1.write(str(demoraTotal / numeroClientesAtendidos) + "\n")
+    #file1.write("-----------------------------\n")
+
 
     print("PROMEDIO CLIENTE EN COLA 1 : " + str(Q1/clock))
     print("PROMEDIO CLIENTE EN COLA 2 : " + str(Q2/clock))
@@ -432,10 +437,10 @@ def Reporte():
     print("######################################################################################################")
 
 
-file1 = open("allFIFO.txt","w") 
-for i in range(10):
+file1 = open("allFIFO.txt","w")
+for i in range(1):
     Inicializacion()
-    
+
     sigueSimulacion = True
     Graficar()
     contadorSistema = 0
@@ -445,10 +450,13 @@ for i in range(10):
         #Graficar()
         GestionDeServidores()
         #Graficar()
-        if(contadorSistema == 500):
+
+        if(contadorSistema == 5000):
             sigueSimulacion = False
         contadorSistema = contadorSistema + 1
-    Reporte()  
-file1.close()  
+
+        file1.write(str(util_sv1 / clock) + "\n")
+    Reporte()
+file1.close()
 
 
