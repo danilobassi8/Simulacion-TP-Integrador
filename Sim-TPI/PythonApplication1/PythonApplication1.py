@@ -126,6 +126,7 @@ class Cliente():
     def __init__(self):
         self.tiempoArribo = 0
         self.prioridad = 1
+        self.llegada2cola = 0
 
 class ListaEventos():
     #variables de clase.
@@ -203,6 +204,7 @@ def OcurreProximoEvento(nextEvent):
 
         clienteSV1 = server1.cliente
         server1.cliente = 0
+        clienteSV1.llegada2cola = clock
         cola2.clientes.append(clienteSV1)
         #calculo el tiempo utilizado del servidor en base a la bandera que se
         #actualiza cuando entra un cliente.
@@ -224,6 +226,7 @@ def OcurreProximoEvento(nextEvent):
 
         clienteSV2 = server2.cliente
         server2.cliente = 0
+        clienteSV2.llegada2cola = clock
         cola2.clientes.append(clienteSV2)
         #calculo el tiempo utilizado del servidor en base a la bandera que se
         #actualiza cuando entra un cliente.
@@ -245,6 +248,7 @@ def OcurreProximoEvento(nextEvent):
 
         clienteSV3 = server3.cliente
         server3.cliente = 0
+        clienteSV3.llegada2cola = clock
         cola2.clientes.append(clienteSV3)
 
         #calculo el tiempo utilizado del servidor en base a la bandera que se
@@ -272,7 +276,7 @@ def OcurreProximoEvento(nextEvent):
 
         #sumo a la demora total del sistema (clock - tiempollegada del cliente)
         demoraTotal = demoraTotal + clock - clienteSV4.tiempoArribo
-        file1.write(str(clock-clienteSV4.tiempoArribo)+"\n")
+        
         numeroClientesAtendidos = numeroClientesAtendidos + 1
 
     elif(nextEvent == "partida5"):
@@ -295,7 +299,7 @@ def OcurreProximoEvento(nextEvent):
 
         #sumo a la demora total del sistema (clock - tiempollegada del cliente)
         demoraTotal = demoraTotal + clock - clienteSV5.tiempoArribo
-        file1.write(str(clock-clienteSV5.tiempoArribo) +"\n")
+        
 
         numeroClientesAtendidos = numeroClientesAtendidos + 1
 
@@ -454,8 +458,8 @@ for i in range(1):
         if(contadorSistema == 5000):
             sigueSimulacion = False
         contadorSistema = contadorSistema + 1
-
-        file1.write(str(util_sv1 / clock) + "\n")
+        file1.write(str(clock) +"\t" + str(cola1.DameCantidad()) +"\t" + "\t" + str(cola2.DameCantidad())+"\n")
+        
     Reporte()
 file1.close()
 
