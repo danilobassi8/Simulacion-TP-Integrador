@@ -197,14 +197,14 @@ def OcurreProximoEvento(nextEvent):
 
         cant = cola1.DameCantidad()
         Q1 = Q1 + (clock-bandera)*cant
-
+                                                    #para calcular Q(t).
         cant = cola2.DameCantidad()
         Q2 = Q2 + (clock-bandera)*cant
         bandera = clock
 
         clienteSV1 = server1.cliente
         server1.cliente = 0
-        clienteSV1.llegada2cola = clock
+        
         cola2.clientes.append(clienteSV1)
         #calculo el tiempo utilizado del servidor en base a la bandera que se
         #actualiza cuando entra un cliente.
@@ -226,7 +226,7 @@ def OcurreProximoEvento(nextEvent):
 
         clienteSV2 = server2.cliente
         server2.cliente = 0
-        clienteSV2.llegada2cola = clock
+        
         cola2.clientes.append(clienteSV2)
         #calculo el tiempo utilizado del servidor en base a la bandera que se
         #actualiza cuando entra un cliente.
@@ -248,7 +248,7 @@ def OcurreProximoEvento(nextEvent):
 
         clienteSV3 = server3.cliente
         server3.cliente = 0
-        clienteSV3.llegada2cola = clock
+        
         cola2.clientes.append(clienteSV3)
 
         #calculo el tiempo utilizado del servidor en base a la bandera que se
@@ -373,7 +373,7 @@ def Graficar():
 
     print()
     print()
-    print("                                                 Cola 3:" , end = '')
+    print("                                                 Cola 2:" , end = '')
     for i in range(len(cola2.clientes)):
         print("| %.4f " % cola2.clientes[i].tiempoArribo, end = '')
     print()
@@ -392,9 +392,9 @@ def Graficar():
     print()
 
     if(server3.cliente != 0):
-        print("                                                             Server 3: %.4f " % server3.cliente.tiempoArribo)
+        print("                             Server 3: %.4f " % server3.cliente.tiempoArribo)
     else:
-        print("                                                             Server 3: Vacio")
+        print("                             Server 3: Vacio")
     if(server4.cliente != 0):
         print("                                                             Server 4: %.4f " % server4.cliente.tiempoArribo)
     else:
@@ -442,7 +442,8 @@ def Reporte():
 
 
 file1 = open("allFIFO.txt","w")
-for i in range(1):
+
+for i in range(1): #cantidad de veces que se corre 
     Inicializacion()
 
     sigueSimulacion = True
@@ -451,14 +452,14 @@ for i in range(1):
     while(sigueSimulacion):
         nextEvent = proximoEvento() #basicamente se fija en cual es el evento mas proximo y lo devuelve.
         OcurreProximoEvento(nextEvent)
-        #Graficar()
+        Graficar()
         GestionDeServidores()
-        #Graficar()
+        Graficar()
 
         if(contadorSistema == 5000):
             sigueSimulacion = False
         contadorSistema = contadorSistema + 1
-        file1.write(str(clock) +"\t" + str(cola1.DameCantidad()) +"\t" + "\t" + str(cola2.DameCantidad())+"\n")
+        file1.write(str(util_sv1 / clock) +"\t" +"\t" + str(util_sv2 / clock) +"\t"+"\t"  +str(util_sv3 / clock) +"\t"+"\t"  +str(util_sv4 / clock) +"\t"+"\t" +str(util_sv5 / clock) +"\t" +"\t" +  "\n")
         
     Reporte()
 file1.close()
