@@ -27,7 +27,7 @@ En este cambio se propone que algunos clientes tengan prioridad. Los clientes qu
 
 ### 1 - Modificación de la ubicación de los servidores.
 Este cambio se propuso luego de analizar el sistema inicial y el cambio 1. Se observó gran sasturacion de la primer linea de servidores, por lo que se propuso pasar poner todos los servidores con una tasa de atencion de 5 cli/ut en la primer linea, y los dos servidores mas rapidos en la segunda linea. Además, también se unificó la cola en la primer instancia de atención.
- ![](/Sim-TPI/imagenes/cambio1.png)
+ ![](/Sim-TPI/imagenes/cambio2.png)
 
 # Informe final
 
