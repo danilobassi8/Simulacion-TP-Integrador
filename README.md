@@ -1,4 +1,4 @@
-  ![](/iSim-TPI/imagenes/UtnLogo.png)
+  ![](/Sim-TPI/imagenes/UtnLogo.png)
 # Sobre el repositorio! 
 
 Este repositorio fue utilizado por los integrantes del grupo para realizar y modificar un script de simulación en Python el cual debía en primer medida, simular una situación. Luego de eso, se deberán proponer dos alternativas que puedan mejorar el sistema actual y llevarlas a cabo.
