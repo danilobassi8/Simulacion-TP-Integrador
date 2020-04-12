@@ -5,6 +5,6 @@ Trabajo practico de simulación donde se debía hacer un script en Python que se
 
 <object data="https://github.com/elcurco8/Simulacion-TP-Integrador/blob/master/Sim-TPI/imagenes/TP_SIM.pdf" width="750px" height="750px">
     <embed src="https://github.com/elcurco8/Simulacion-TP-Integrador/blob/master/Sim-TPI/imagenes/TP_SIM.pdf" type="application/pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/elcurco8/Simulacion-TP-Integrador/blob/master/Sim-TPI/imagenes/TP_SIM.pdf">Download PDF</a>.</p>
+        <p>TPara visualizar el informe final, dirijase a: <a href="https://github.com/elcurco8/Simulacion-TP-Integrador/blob/master/Sim-TPI/imagenes/TP_SIM.pdf">Download PDF</a>.</p>
     </embed>
 </object>
