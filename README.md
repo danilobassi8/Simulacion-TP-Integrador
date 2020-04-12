@@ -5,6 +5,6 @@ Trabajo practico de simulación donde se debía hacer un script en Python que se
 
 <object data="https://github.com/elcurco8/Simulacion-TP-Integrador/blob/master/Sim-TPI/imagenes/TP_SIM.pdf" width="750px" height="750px">
     <embed src="https://github.com/elcurco8/Simulacion-TP-Integrador/blob/master/Sim-TPI/imagenes/TP_SIM.pdf" type="application/pdf">
-        <p>Para visualizar el informe final, dirijase a: <a href="https://github.com/elcurco8/Simulacion-TP-Integrador/blob/master/Sim-TPI/imagenes/TP_SIM.pdf">TP Entregado</a>.</p>
+        <p>Para visualizar el informe final, haga click en:  <a href="https://github.com/elcurco8/Simulacion-TP-Integrador/blob/master/Sim-TPI/imagenes/TP_SIM.pdf">TP Entregado</a>.</p>
     </embed>
 </object>
